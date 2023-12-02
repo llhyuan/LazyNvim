@@ -1,4 +1,5 @@
 # 💤 LazyVim
 
-A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
-Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
+## This nvim config is based on a starter from LazyVim, customized to my own likings.
+
+Also started using Alacritty with nvim. IT IS AMAZING.

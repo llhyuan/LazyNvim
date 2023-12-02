@@ -27,6 +27,7 @@ require("lazy").setup({
     -- linter and prettier
     { import = "lazyvim.plugins.extras.linting.eslint" },
     { import = "lazyvim.plugins.extras.formatting.prettier" },
+    { import = "lazyvim.plugins.extras.lsp.none-ls" },
 
     -- Go
     { import = "lazyvim.plugins.extras.lang.go" },

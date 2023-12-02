@@ -3,7 +3,7 @@
 -- Add any additional keymaps here
 
 local Util = require("lazyvim.util")
-local options = { remap = false, silent = true }
+local options = { noremap = true, silent = true }
 
 local function map(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
@@ -181,15 +181,15 @@ map("n", "<leader>df", "<cmd>lua vim.lsp.buf.definition()<CR>", options)
 map( "n", "<leader>dt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", options)
 map("n", "<leader>ov", "<cmd>lua vim.lsp.buf.hover()<CR>", options)
 map("n", "<leader>ip", "<cmd>lua vim.lsp.buf.implementation()<CR>", options)
-map("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", options)
+map("n", "<leader>ds", "<cmd>lua vim.lsp.buf.signature_help()<CR>", options)
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", options)
 map("n", "<leader>rf", "<cmd>lua vim.lsp.buf.references()<CR>", options)
 map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", options)
 
--- Diagnostics
-map("n", "<leader>dg", "<cmd>lua vim.diagnostic.open_float()<CR>", options)
-map("n", "<leader>dk", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', options)
-map("n", "<leader>dj", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', options)
+-- -- Diagnostics
+-- map("n", "<leader>dg", "<cmd>lua vim.diagnostic.open_float()<CR>", options)
+-- map("n", "<leader>dk", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', options)
+-- map("n", "<leader>dj", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', options)
 
 -- telescope
 local builtin = require('telescope.builtin')
