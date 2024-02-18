@@ -26,18 +26,18 @@ map("n", "<leader>rc", ":e ~/.config/nvim/init.vim <cr>", { desc = "Config file"
 map("n", "å", "gg<S-v>G", { desc = "Select all", remap = false }) -- option + a
 
 -- use ; as :
-map("n", ";", ":", options)
+-- map("n", ";", ":", options)
 
 -- use jj to switch from i to n mode
 map("i", "jj", "<esc>", options)
 
 -- quick movement
 map("n", "J", "15j", options)
-map("n", "K", "15k", options)
-map("v", "H", "g^", options)
-map("n", "H", "g^", options)
-map("v", "L", "g$", options)
-map("n", "L", "g$", options)
+map("n", "KK", "20k", options)
+map("v", "H", "0", options)
+map("n", "H", "0", options)
+map("v", "L", "$", options)
+map("n", "L", "$", options)
 
 -- replace the highlighted text with content from clip board.
 map("n", "d", '"zd', options)
@@ -140,8 +140,7 @@ if vim.lsp.inlay_hint then
 end
 
 -- lazygit
-map("n", "<leader>gg", function() Util.float_term({ "lazygit" }, { cwd = Util.get_root(), esc_esc = false, ctrl_hjkl = false }) end, { desc = "Lazygit (root dir)" })
-map("n", "<leader>gG", function() Util.float_term({ "lazygit" }, {esc_esc = false, ctrl_hjkl = false}) end, { desc = "Lazygit (cwd)" })
+map("n", "<leader>gg", ":LazyGit<cr>", { desc = "Lazygit in a float term" })
 
 -- quit
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
@@ -153,14 +152,26 @@ end
 
 -- terminal
 map("n", "<leader>t", ":ToggleTerm<cr>",{desc="Toggle terminal"})
+-- <number><leader>t open up a different terminal, with a different id indicated by the <number>. 
 
 -- Terminal Mappings
 map("t", "<esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
-map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
-map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
-map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
-map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
+-- map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
+-- map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
+-- map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
+-- map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
 map("t", "<C-t>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+
+-- Window Navigating: intergrated with tmux 
+map("n", "<C-h>", "<cmd> TmuxNavigateLeft<cr>", { desc = "Go to left window" })
+map("n", "<C-j>", "<cmd> TmuxNavigateDown<cr>", { desc = "Go to lower window" })
+map("n", "<C-k>", "<cmd> TmuxNavigateUp<cr>", { desc = "Go to upper window" })
+map("n", "<C-l>", "<cmd> TmuxNavigateRight<cr>", { desc = "Go to right window" })
+map("t", "<C-h>", "<cmd> TmuxNavigateLeft<cr>", { desc = "Go to left window" })
+map("t", "<C-j>", "<cmd> TmuxNavigateDown<cr>", { desc = "Go to lower window" })
+map("t", "<C-k>", "<cmd> TmuxNavigateUp<cr>", { desc = "Go to upper window" })
+map("t", "<C-l>", "<cmd> TmuxNavigateRight<cr>", { desc = "Go to right window" })
+
 
 -- windows
 map("n", "<leader>ww", "<C-W>p", { desc = "Other window", remap = true })
@@ -197,3 +208,6 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+
+-- directoty buffer
+vim.keymap.set("n", "<leader>o", "<CMD>Oil .<CR>", { desc = "Open current directory buffer" })

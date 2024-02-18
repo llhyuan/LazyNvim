@@ -28,6 +28,10 @@ vim.opt.listchars = {
   trail = "+",
 }
 
+-- Setup sonokai colortheme
+vim.g.sonokai_style = "andromeda"
+vim.g.sonokai_better_performance = 1
+
 -- Disables automatic commenting on newline
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "*" },

@@ -3,11 +3,12 @@ return {
   { "sainnhe/gruvbox-material" },
   { "mhartington/oceanic-next" },
   { "sainnhe/sonokai" },
+  { "EdenEast/nightfox.nvim" },
+  {
+    "xero/miasma.nvim",
+  },
   {
     "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
   },
   {
     "catppuccin/nvim",
@@ -45,11 +46,25 @@ return {
       },
     },
   },
+  -- {
+  --   "nvim-tree/nvim-web-devicons",
+  --   lazy = true,
+  --   opts = {
+  --     override_by_extension = {
+  --       ["toml"] = {
+  --         icon = "",
+  --         color = "#ffffff",
+  --         cterm_color = "231",
+  --         name = "Toml",
+  --       },
+  --     },
+  --   },
+  -- },
 
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "sonokai",
+      colorscheme = "nightfox",
       icons = {
         dap = {
           Stopped = { " ", "DiagnosticWarn", "DapStoppedLine" },

@@ -36,6 +36,7 @@ return {
           }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         }),
         sources = cmp.config.sources({
+          { name = "nvim_lua" },
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "buffer", max_item_count = 4, keyword_length = 5 },
@@ -51,6 +52,7 @@ return {
           end,
         },
         experimental = {
+          native_menu = false,
           ghost_text = {
             hl_group = "CmpGhostText",
           },
