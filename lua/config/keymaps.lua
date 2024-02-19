@@ -32,8 +32,15 @@ map("n", "å", "gg<S-v>G", { desc = "Select all", remap = false }) -- option + a
 map("i", "jj", "<esc>", options)
 
 -- quick movement
-map("n", "J", "15j", options)
-map("n", "KK", "20k", options)
+-- <CTRL-u> half screen up
+-- <CTRL-d> half screen up
+-- CTRL-e (scroll the screen one line up)
+-- CTRL-y (scroll the screen one line down)
+-- CTRL-f (To scroll by a full screen)
+-- CTRL-b (To scroll backward by a full screen)
+-- zz to move the line under the cursor to the middle of the screen
+-- zt to ... to the top of the scteen
+-- zb to ... to the bottom of the scteen
 map("v", "H", "0", options)
 map("n", "H", "0", options)
 map("v", "L", "$", options)
@@ -47,11 +54,12 @@ map("v", "x", '"zx', options)
 map("v", "p", '"_dP', options)
 map("x", "<leader>p", '"_dp', options) -- paste without replacing the content in current register.
 
--- Move to window using the <ctrl> hjkl keys
-map("n", "<leader>h", "<C-w>h", { desc = "Go to left window", remap = true })
-map("n", "<leader>j", "<C-w>j", { desc = "Go to lower window", remap = true })
-map("n", "<leader>k", "<C-w>k", { desc = "Go to upper window", remap = true })
-map("n", "<leader>l", "<C-w>l", { desc = "Go to right window", remap = true })
+-- Navigate window using the <ctrl> hjkl keys
+
+--map("n", "<leader>h", "<C-w>h", { desc = "Go to left window", remap = true })
+--map("n", "<leader>j", "<C-w>j", { desc = "Go to lower window", remap = true })
+--map("n", "<leader>k", "<C-w>k", { desc = "Go to upper window", remap = true })
+--map("n", "<leader>l", "<C-w>l", { desc = "Go to right window", remap = true })
 
 -- Resize window using <ctrl> arrow keys
 map("n", "<Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
@@ -190,7 +198,7 @@ map("n", "_", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 map("n", "<leader>dc", "<cmd>lua vim.lsp.buf.declaration()<CR>", options)
 map("n", "<leader>df", "<cmd>lua vim.lsp.buf.definition()<CR>", options)
 map( "n", "<leader>dt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", options)
-map("n", "<leader>ov", "<cmd>lua vim.lsp.buf.hover()<CR>", options)
+--map("n", "<leader>ov", "<cmd>lua vim.lsp.buf.hover()<CR>", options)
 map("n", "<leader>ip", "<cmd>lua vim.lsp.buf.implementation()<CR>", options)
 map("n", "<leader>ds", "<cmd>lua vim.lsp.buf.signature_help()<CR>", options)
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", options)

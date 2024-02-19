@@ -5,12 +5,12 @@ return {
     event = "VimEnter",
     opts = function()
       local logo = table.concat({
-        "             ██╗   ██╗██╗███╗   ███╗          ",
-        "             ██║   ██║██║████╗ ████║          ",
-        "             ██║   ██║██║██╔████╔██║          ",
-        "             ╚██╗ ██╔╝██║██║╚██╔╝██║          ",
-        "              ╚████╔╝ ██║██║ ╚═╝ ██║          ",
-        "               ╚═══╝  ╚═╝╚═╝     ╚═╝          ",
+        "              ██╗   ██╗██╗███╗   ███╗          ",
+        "              ██║   ██║██║████╗ ████║          ",
+        "              ██║   ██║██║██╔████╔██║          ",
+        "              ╚██╗ ██╔╝██║██║╚██╔╝██║          ",
+        "               ╚████╔╝ ██║██║ ╚═╝ ██║          ",
+        "         neo.   ╚═══╝  ╚═╝╚═╝     ╚═╝          ",
         "                                              ",
       }, "\n")
       local pad = string.rep(" ", 18)
@@ -55,7 +55,7 @@ return {
           local stats = require("lazy").stats()
           local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
           local pad_footer = string.rep(" ", 8)
-          starter.config.footer = pad_footer .. "⚡ Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
+          starter.config.footer = pad_footer .. "⚡" .. stats.count .. " plugins loaded in " .. ms .. "ms"
           pcall(starter.refresh)
         end,
       })
