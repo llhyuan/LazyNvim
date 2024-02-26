@@ -47,8 +47,8 @@ map("v", "L", "$", options)
 map("n", "L", "$", options)
 
 -- replace the highlighted text with content from clip board.
-map("n", "d", '"zd', options)
-map("v", "d", '"zd', options)
+--map("n", "d", '"zd', options)
+--map("v", "d", '"zd', options)
 map("n", "x", '"zx', options)
 map("v", "x", '"zx', options)
 map("v", "p", '"_dP', options)
@@ -59,7 +59,7 @@ map("x", "<leader>p", '"_dp', options) -- paste without replacing the content in
 --map("n", "<leader>h", "<C-w>h", { desc = "Go to left window", remap = true })
 --map("n", "<leader>j", "<C-w>j", { desc = "Go to lower window", remap = true })
 --map("n", "<leader>k", "<C-w>k", { desc = "Go to upper window", remap = true })
---map("n", "<leader>l", "<C-w>l", { desc = "Go to right window", remap = true })
+map("n", "<leader>l", "<C-w>l", { desc = "Go to right window", remap = true })
 
 -- Resize window using <ctrl> arrow keys
 map("n", "<Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
@@ -119,11 +119,8 @@ map({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
--- lazy
-map("n", "<leader>L", "<cmd>Lazy<cr>", { desc = "Lazy" })
-
 -- new file
-map("n", "<leader>nf", "<cmd>enew<cr>", { desc = "New File" })
+--map("n", "<leader>nf", "<cmd>enew<cr>", { desc = "New File" })
 
 map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
 map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
@@ -198,7 +195,7 @@ map("n", "_", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 map("n", "<leader>dc", "<cmd>lua vim.lsp.buf.declaration()<CR>", options)
 map("n", "<leader>df", "<cmd>lua vim.lsp.buf.definition()<CR>", options)
 map( "n", "<leader>dt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", options)
---map("n", "<leader>ov", "<cmd>lua vim.lsp.buf.hover()<CR>", options)
+-- map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", options)
 map("n", "<leader>ip", "<cmd>lua vim.lsp.buf.implementation()<CR>", options)
 map("n", "<leader>ds", "<cmd>lua vim.lsp.buf.signature_help()<CR>", options)
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", options)
@@ -218,4 +215,4 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 -- directoty buffer
-vim.keymap.set("n", "<leader>o", "<CMD>Oil .<CR>", { desc = "Open current directory buffer" })
+vim.keymap.set("n", "<leader>d", "<CMD>Oil .<CR>", { desc = "Open current directory buffer" })

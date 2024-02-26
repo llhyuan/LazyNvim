@@ -9,6 +9,7 @@ vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.showmatch = true
+vim.opt.matchtime = 10
 
 -- terminal
 vim.opt_global.shell = "/bin/zsh"
