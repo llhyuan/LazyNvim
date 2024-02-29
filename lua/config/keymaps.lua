@@ -214,5 +214,7 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
--- directoty buffer
-vim.keymap.set("n", "<leader>d", "<CMD>Oil .<CR>", { desc = "Open current directory buffer" })
+-- directoty buffer for oil
+local oil = require("oil")
+vim.keymap.set("n", "<leader>d", oil.open_float, { desc = "Open current directory buffer" })
+vim.keymap.set("n", "<leader>h", '<cmd>Oil --float .<CR>', { desc = "Open current directory buffer" })

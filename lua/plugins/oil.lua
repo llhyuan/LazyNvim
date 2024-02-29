@@ -1,6 +1,7 @@
 return {
   {
     "stevearc/oil.nvim",
+    lazy = false,
     opts = {
       columns = {
         "icon",
@@ -9,6 +10,10 @@ return {
         --"mtime",
       },
     },
+    keys = {
+      { "<leader>d", "actions.open_cwd", desc = "Open current directroy" },
+    },
+
     -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
