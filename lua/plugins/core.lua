@@ -1,18 +1,20 @@
 return {
-  { "ellisonleao/gruvbox.nvim" },
-  { "sainnhe/gruvbox-material" },
-  { "mhartington/oceanic-next" },
-  { "sainnhe/sonokai" },
-  { "EdenEast/nightfox.nvim" },
+  { "ellisonleao/gruvbox.nvim", lazy = true },
+  { "sainnhe/gruvbox-material", lazy = true },
+  { "mhartington/oceanic-next", lazy = true },
+  { "sainnhe/sonokai", lazy = true },
+  { "EdenEast/nightfox.nvim", lazy = true },
   {
     "xero/miasma.nvim",
+    lazy = true,
   },
   {
     "folke/tokyonight.nvim",
+    lazy = true,
   },
   {
     "catppuccin/nvim",
-    lazy = false,
+    lazy = true,
     priority = 1000,
     name = "catppuccin",
     opts = {
@@ -64,7 +66,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "nightfox",
+      colorscheme = "gruvbox-material",
       icons = {
         dap = {
           Stopped = { " ", "DiagnosticWarn", "DapStoppedLine" },

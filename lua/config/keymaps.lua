@@ -41,8 +41,8 @@ map("i", "jj", "<esc>", options)
 -- zz to move the line under the cursor to the middle of the screen
 -- zt to ... to the top of the scteen
 -- zb to ... to the bottom of the scteen
-map("v", "H", "0", options)
-map("n", "H", "0", options)
+map("v", "H", "^", options)
+map("n", "H", "^", options)
 map("v", "L", "$", options)
 map("n", "L", "$", options)
 
@@ -192,29 +192,63 @@ map("n", "+", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "_", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 -- keymaps for lsp
-map("n", "<leader>dc", "<cmd>lua vim.lsp.buf.declaration()<CR>", options)
-map("n", "<leader>df", "<cmd>lua vim.lsp.buf.definition()<CR>", options)
-map( "n", "<leader>dt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", options)
--- map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", options)
-map("n", "<leader>ip", "<cmd>lua vim.lsp.buf.implementation()<CR>", options)
+map("n", "gr", require('telescope.builtin').lsp_references, options)
+map("n", "gd", require('telescope.builtin').lsp_definitions, options)
+map( "n", "gt", require('telescope.builtin').lsp_type_definitions, options)
+map("n", "K", vim.lsp.buf.hover, options)
+map("n", "gip", require('telescope.builtin').lsp_implementations, options)
 map("n", "<leader>ds", "<cmd>lua vim.lsp.buf.signature_help()<CR>", options)
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", options)
-map("n", "<leader>rf", "<cmd>lua vim.lsp.buf.references()<CR>", options)
-map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", options)
+--map("n", "<leader>rf", "<cmd>lua vim.lsp.buf.references()<CR>", options)
+map("n", "<leader>ca", vim.lsp.buf.code_action, options)
+-- Fuzzy find all the symbols in your current document.
+--  Symbols are things like variables, functions, types, etc.
+map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+-- Fuzzy find all the symbols in your current workspace.
+--  Similar to document symbols, except searches over your entire project.
+map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
--- -- Diagnostics
--- map("n", "<leader>dg", "<cmd>lua vim.diagnostic.open_float()<CR>", options)
--- map("n", "<leader>dk", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', options)
--- map("n", "<leader>dj", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', options)
+-- Diagnostics
+map("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", options)
+map("n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', options)
+map("n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', options)
 
 -- telescope
 local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>fk', builtin.keymaps, {desc="[F]ind [K]eymaps"})
+vim.keymap.set('n', '<leader>fw', builtin.grep_string, {desc="[F]ind current [W]word"})
+vim.keymap.set('n', '<leader>fd', builtin.diagnostics, {desc="[F]ind [D]iagnostics"})
+vim.keymap.set('n', '<leader>f.', builtin.oldfiles, {desc="[F]ind recent files"})
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+-- It's also possible to pass additional configuration options.
+--  See `:help telescope.builtin.live_grep()` for information about particular keys
+vim.keymap.set('n', '<leader>g/', function()
+  builtin.live_grep {
+    grep_open_files = true,
+    prompt_title = 'Live Grep in Open Files',
+  }
+end, { desc = '[S]earch [/] in Open Files' })
 
 -- directoty buffer for oil
 local oil = require("oil")
-vim.keymap.set("n", "<leader>d", oil.open_float, { desc = "Open current directory buffer" })
+vim.keymap.set("n", "<leader>d", oil.open, { desc = "Open current directory buffer" })
 vim.keymap.set("n", "<leader>h", '<cmd>Oil --float .<CR>', { desc = "Open current directory buffer" })
+
+-- harpoon 
+local harpoon = require("harpoon")
+-- REQUIRED
+harpoon:setup()
+-- REQUIRED
+
+vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+vim.keymap.set("n", "<C-n>", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<C-m>", function() harpoon:list():select(2) end)
+
+-- Toggle previous & next buffers stored within Harpoon list
+vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
+vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)

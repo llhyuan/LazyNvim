@@ -3,7 +3,7 @@ return {
     "neovim/nvim-lspconfig",
     -- other settings removed for brevity
     opts = {
-      ---@type lspconfig.options
+      --@type lspconfig.options
       servers = {
         eslint = {
           settings = {
@@ -206,47 +206,53 @@ return {
       },
     },
   },
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = { "jose-elias-alvarez/typescript.nvim" },
-    opts = {
-      -- make sure mason installs the server
-      servers = {
-        ---@type lspconfig.options.tsserver
-        tsserver = {
-          keys = {
-            { "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", desc = "Organize Imports" },
-            { "<leader>cR", "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
-          },
-          settings = {
-            typescript = {
-              autoClosingTags = true,
-
-              format = {
-                indentSize = vim.o.shiftwidth,
-                convertTabsToSpaces = vim.o.expandtab,
-                tabSize = vim.o.tabstop,
-              },
-            },
-            javascript = {
-              format = {
-                indentSize = vim.o.shiftwidth,
-                convertTabsToSpaces = vim.o.expandtab,
-                tabSize = vim.o.tabstop,
-              },
-            },
-            completions = {
-              completeFunctionCalls = true,
-            },
-          },
-        },
-      },
-      setup = {
-        tsserver = function(_, opts)
-          require("typescript").setup({ server = opts })
-          return true
-        end,
-      },
-    },
-  },
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   dependencies = { "jose-elias-alvarez/typescript.nvim" },
+  --   opts = {
+  --     -- make sure mason installs the server
+  --     servers = {
+  --       --@type lspconfig.options.tsserver
+  --       tsserver = {
+  --         keys = {
+  --           { "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", desc = "Organize Imports" },
+  --           { "<leader>cr", "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
+  --         },
+  --         settings = {
+  --           typescript = {
+  --             autoClosingTags = true,
+  --
+  --             format = {
+  --               indentSize = vim.o.shiftwidth,
+  --               convertTabsToSpaces = vim.o.expandtab,
+  --               tabSize = vim.o.tabstop,
+  --             },
+  --           },
+  --           javascript = {
+  --             format = {
+  --               indentSize = vim.o.shiftwidth,
+  --               convertTabsToSpaces = vim.o.expandtab,
+  --               tabSize = vim.o.tabstop,
+  --             },
+  --           },
+  --           completions = {
+  --             completeFunctionCalls = true,
+  --           },
+  --         },
+  --       },
+  --     },
+  --     setup = {
+  --       tsserver = function(_, opts)
+  --         require("typescript").setup({ server = opts })
+  --         return true
+  --       end,
+  --     },
+  --   },
+  -- },
+   {
+     "pmizio/typescript-tools.nvim",
+       lazy = true,
+     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+     opts = {},
+   }
 }

@@ -6,10 +6,14 @@
 -- search
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
+-- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.showmatch = true
 vim.opt.matchtime = 10
+
+-- Enable break indent
+vim.opt.breakindent = true
 
 -- terminal
 vim.opt_global.shell = "/bin/zsh"
@@ -29,9 +33,14 @@ vim.opt.listchars = {
   trail = "+",
 }
 
+-- Preview substitutions live, as you type!
+vim.opt.inccommand = "split"
+
 -- Setup sonokai colortheme
 vim.g.sonokai_style = "andromeda"
 vim.g.sonokai_better_performance = 1
+
+vim.g.gruvbox_material_foreground = "mix"
 
 -- Disables automatic commenting on newline
 vim.api.nvim_create_autocmd({ "FileType" }, {

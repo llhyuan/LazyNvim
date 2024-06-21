@@ -3,10 +3,11 @@
 -- Add any additional autocmds here
 
 -- Highlight yanked text
-local au = vim.api.nvim_create_autocmd
+local ac = vim.api.nvim_create_autocmd
 local ag = vim.api.nvim_create_augroup
 ---Highlight the texts when you yanked
-au("TextYankPost", {
+ac("TextYankPost", {
+  desc = "Highlight when yank text",
   group = ag("yank_highlight", {}),
   pattern = "*",
   callback = function()
