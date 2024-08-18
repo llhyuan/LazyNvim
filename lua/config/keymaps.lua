@@ -5,19 +5,7 @@
 local Util = require("lazyvim.util")
 local options = { noremap = true, silent = true }
 
-local function map(mode, lhs, rhs, opts)
-  local keys = require("lazy.core.handler").handlers.keys
-  ---@cast keys LazyKeysHandler
-  -- do not create the keymap if a lazy keys handler exists
-  if not keys.active[keys.parse({ lhs, mode = mode }).id] then
-    opts = opts or {}
-    opts.silent = opts.silent ~= false
-    if opts.remap and not vim.g.vscode then
-      opts.remap = nil
-    end
-    vim.keymap.set(mode, lhs, rhs, opts)
-  end
-end
+local map = vim.keymap.set
 
 -- quick access to the config file
 map("n", "<leader>rc", ":e ~/.config/nvim/init.vim <cr>", { desc = "Config file", remap = false })
@@ -137,7 +125,8 @@ map("n", "<leader>uf", require("lazyvim.util").format.toggle, { desc = "Toggle f
 map("n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
 map("n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
 map("n", "<leader>ul", function() Util.toggle("relativenumber", true) Util.toggle("number") end, { desc = "Toggle Line Numbers" })
-map("n", "<leader>ud", Util.toggle.diagnostics, { desc = "Toggle Diagnostics" })
+map("n", "<leader>ud", function () Util.toggle('diagnostic') end, {desc='Toggle diagnostic'} )
+
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
 map("n", "<leader>uc", function() Util.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
 if vim.lsp.inlay_hint then
@@ -192,50 +181,49 @@ map("n", "+", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "_", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 -- keymaps for lsp
-map("n", "gr", require('telescope.builtin').lsp_references, options)
-map("n", "gd", require('telescope.builtin').lsp_definitions, options)
-map( "n", "gt", require('telescope.builtin').lsp_type_definitions, options)
-map("n", "K", vim.lsp.buf.hover, options)
-map("n", "gip", require('telescope.builtin').lsp_implementations, options)
+map("n", "gr", require('telescope.builtin').lsp_references, {desc= 'Go to references'})
+map("n", "gd", require('telescope.builtin').lsp_definitions, {desc= 'Go to definition'})
+map( "n", "gt", require('telescope.builtin').lsp_type_definitions, {desc= 'Go to type definition'})
+map("n", "K", vim.lsp.buf.hover, {desc= 'Hover'})
+map("n", "gip", require('telescope.builtin').lsp_implementations, {desc= 'Go to implementations'})
 map("n", "<leader>ds", "<cmd>lua vim.lsp.buf.signature_help()<CR>", options)
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", options)
 --map("n", "<leader>rf", "<cmd>lua vim.lsp.buf.references()<CR>", options)
 map("n", "<leader>ca", vim.lsp.buf.code_action, options)
 -- Fuzzy find all the symbols in your current document.
 --  Symbols are things like variables, functions, types, etc.
-map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+map("n","<leader>ds", require('telescope.builtin').lsp_document_symbols, {desc="Document Symbols"})
 -- Fuzzy find all the symbols in your current workspace.
 --  Similar to document symbols, except searches over your entire project.
-map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+map("n",'<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, {desc="Workspace Symbols"})
 
 -- Diagnostics
-map("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", options)
-map("n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', options)
-map("n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', options)
+map("n", "<leader>d", vim.diagnostic.open_float, options)
+map("n", "[d", vim.diagnostic.goto_prev, options)
+map("n", "]d", vim.diagnostic.goto_next, options)
 
 -- telescope
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>fk', builtin.keymaps, {desc="[F]ind [K]eymaps"})
-vim.keymap.set('n', '<leader>fw', builtin.grep_string, {desc="[F]ind current [W]word"})
-vim.keymap.set('n', '<leader>fd', builtin.diagnostics, {desc="[F]ind [D]iagnostics"})
-vim.keymap.set('n', '<leader>f.', builtin.oldfiles, {desc="[F]ind recent files"})
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+map('n', '<leader>fk', builtin.keymaps, {desc="Find Keymaps"})
+map('n', '<leader>fw', builtin.grep_string, {desc="Find current Word"})
+map('n', '<leader>fd', builtin.diagnostics, {desc="Find Diagnostics"})
+map('n', '<leader>f.', builtin.oldfiles, {desc="Find recent files"})
+map('n', '<leader>ff', builtin.find_files, {desc= 'Find files'})
+map('n', '<leader>fg', builtin.live_grep, {desc='Live grep'})
+map('n', '<leader>fb', builtin.buffers, {desc= 'Find buffers'})
+map('n', '<leader>fh', builtin.help_tags, {desc='Find help tags'})
 -- It's also possible to pass additional configuration options.
 --  See `:help telescope.builtin.live_grep()` for information about particular keys
-vim.keymap.set('n', '<leader>g/', function()
+map('n', '<leader>g/', function()
   builtin.live_grep {
     grep_open_files = true,
     prompt_title = 'Live Grep in Open Files',
   }
-end, { desc = '[S]earch [/] in Open Files' })
+end, { desc = 'Search in open files' })
 
 -- directoty buffer for oil
 local oil = require("oil")
-vim.keymap.set("n", "<leader>d", oil.open, { desc = "Open current directory buffer" })
-vim.keymap.set("n", "<leader>h", '<cmd>Oil --float .<CR>', { desc = "Open current directory buffer" })
+map("n", "<leader>s", '<cmd>Oil --float .<CR>', { desc = "Open current directory buffer" })
 
 -- harpoon 
 local harpoon = require("harpoon")
@@ -243,12 +231,9 @@ local harpoon = require("harpoon")
 harpoon:setup()
 -- REQUIRED
 
-vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
-vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-
-vim.keymap.set("n", "<C-n>", function() harpoon:list():select(1) end)
-vim.keymap.set("n", "<C-m>", function() harpoon:list():select(2) end)
+map("n", "<leader>a", function() harpoon:list():add() end)
+map("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
 -- Toggle previous & next buffers stored within Harpoon list
-vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+map("n", "<C-S-P>", function() harpoon:list():prev() end)
+map("n", "<C-S-N>", function() harpoon:list():next() end)

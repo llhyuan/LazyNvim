@@ -41,9 +41,6 @@ require("lazy").setup({
 
     -- Tailwind
     { import = "lazyvim.plugins.extras.lang.tailwind" },
-
-    -- typescript
-    { import = "lazyvim.plugins.extras.lang.typescript" },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
